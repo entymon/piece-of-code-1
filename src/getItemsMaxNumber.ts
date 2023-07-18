@@ -1,10 +1,17 @@
 const getItemsMaxNumber = (items: { name: string; }[]): number => {
   const regExp = /\d+/g;
   let max = 0;
-  for (const i in items) {
-    const match = items[i].name.match(regExp)
-    const next = match && match.length === 1 ? Number(match[0]) : 0;
-    if (next > max) max = next;
+  for (const item of items) {
+    const matches = item.name.match(regExp)
+    if (matches) {
+      const numberMatches: number[] = [];
+
+      for (const s in matches) {
+        numberMatches.push(Number(s))
+      }
+      const next = Math.max(...numberMatches);
+      if (next > max) max = next;
+    }
   }
   return max;
 }
